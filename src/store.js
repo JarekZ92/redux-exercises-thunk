@@ -1,7 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import fetchUsers, { setUsersAction } from './state/fetchUsers'
+import fetchUsers, { fetchUsersAction } from './state/fetchUsers'
 
 const reducer = combineReducers({
     fetchUsers
@@ -16,9 +16,8 @@ export const store = createStore(
     )                         //
 )
 
-fetch('https://randomuser.me/api?results=10')
-    .then(response => response.json())
-    .then(data => store.dispatch(setUsersAction(data)))
+store.dispatch(fetchUsersAction())
+
 
 
 
