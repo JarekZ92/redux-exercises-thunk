@@ -11,11 +11,13 @@ const Auth = (props) => (
     <div>
         <div>
             <input type="email"
+                value={props._emailValue}
                 onChange={props._onEmailChange}
             />
         </div>
         <div>
             <input type="password"
+                value={props._passwordValue}
                 onChange={props._onPasswordChange}
             />
         </div>
@@ -29,7 +31,10 @@ const Auth = (props) => (
     </div>
 )
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+    _emailValue: state.auth.email,
+    _passwordValue: state.auth.password
+})
 
 const mapDispatchToProps = dispatch => ({
     _onEmailChange: event => dispatch(onEmailChanageAction(event.target.value)),
