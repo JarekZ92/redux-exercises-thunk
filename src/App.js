@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import Users from './state/views/Users';
 import Auth from './components/Auth';
-
+import Users from './views/Users';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Auth />
+        <Auth>
+          <Users />
+        </Auth>
       </div>
     )
   }

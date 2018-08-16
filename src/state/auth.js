@@ -1,5 +1,7 @@
 import { auth as firebaseAuth } from '../firebaseConfig'
 
+import { fetchUsersAction } from './fetchUsers'
+
 const EMAIL_CHANGE = 'auth/EMAIL_CHANGE'
 const PASSWORD_CHANGE = 'auth/PASSWORD_CHANGE'
 const SET_USER = 'auth/SET_USER'
@@ -27,7 +29,10 @@ export const setUserAction = user => ({
 
 export const initAuthStateListening = () => (dispatch, getState) => {
     firebaseAuth.onAuthStateChanged(user => {
+        dispatch(setUserAction(user)) // user is nul if user is logged out
+
         if (user) {
+            dispatch(fetchUsersAction())
             //here is good place to dispatch after login action
         } else {
             //here is good place to dispatch after logOUT action
@@ -35,6 +40,12 @@ export const initAuthStateListening = () => (dispatch, getState) => {
         }
         dispatch(setUserAction(user))
     })
+}
+
+export const logOutAction = () => (dispatch, getState) => {
+    firebaseAuth.signOut()
+        .then(() => console.log('SINGNOUT OK'))
+        .catch(() => console.log('SINGNOUT ERROR'))
 }
 
 export const onLogInClickAction = () => (dispatch, getState) => {
